@@ -2,25 +2,25 @@
 //	main.cpp
 //	BankAccountManagementSystem
 //
-//	Created by Matheus Matsumoto on 09/03/2024
+//	Created by Matheus Matsumoto on 10/03/2024
 //
 
 #include <iostream>
-#include "BankAccount/BankAccount.h"
+#include "AccountManager/AccountManager.h"
 
 int main() {
 
-	BankAccount myAccount;
+	AccountManager accountManager;
 
-	long double depositValue = 350.00;
-	myAccount.deposit(depositValue);
+	accountManager.createBankAccount();
 
-	long double withdrawValue = 1000.00;
-	myAccount.withdraw(withdrawValue);
-
-	myAccount.withdraw(100.00);
-
-	myAccount.printInfo();
+	std::string password = "myPassword123";
+	std::string passwordEncrypted = accountManager.encryptPassword(password);
+	std::string passwordDecrypted = accountManager.decryptPassword(passwordEncrypted);
+	std::cout << "\nOriginal Password: " << password
+		<< "\nEncrypted Password: " << passwordEncrypted
+		<< "\nDecrypted Password: " << passwordDecrypted
+		<< std::endl;
 
 	return 0;
 }

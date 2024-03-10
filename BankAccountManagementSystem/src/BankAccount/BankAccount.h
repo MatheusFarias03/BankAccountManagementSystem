@@ -13,10 +13,9 @@
 #include <cstdlib>
 #include <random>
 
-class BankAccount
-{
+class BankAccount {
 public:
-	BankAccount();
+	BankAccount(std::string name, std::string address, std::string ssn);
 	~BankAccount();
 
 	int getAccountNumber();
@@ -28,6 +27,10 @@ public:
 	void printInfo();
 
 private:
+	std::string name;
+	std::string address;
+	std::string ssn;
+
 	int accountNumber;
 	long double balance;
 };

@@ -7,7 +7,7 @@
 
 #include "BankAccount.h"
 
-BankAccount::BankAccount() {
+BankAccount::BankAccount(std::string name, std::string address, std::string ssn) {
 
 	std::random_device rd; // A seed source for the random number engine.
 	std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd().
@@ -16,7 +16,17 @@ BankAccount::BankAccount() {
 	accountNumber = dis(gen);
 	balance = 0.0;
 
-	std::cout << "Account created.\naccountNumber: " << accountNumber << "\nbalance: " << balance << std::endl;
+	BankAccount::name = name;
+	BankAccount::address = address;
+	BankAccount::ssn = ssn;
+
+	std::cout << "\nAccount created."
+		<< "\naccountNumber: " << accountNumber 
+		<< "\nbalance: " << balance
+		<< "\nname: " << name
+		<< "\naddress: " << address
+		<< "\nssn: " << ssn
+		<< std::endl;
 }
 
 BankAccount::~BankAccount() {}

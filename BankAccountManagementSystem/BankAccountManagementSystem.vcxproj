@@ -147,10 +147,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AccountManager\AccountManager.cpp" />
     <ClCompile Include="src\BankAccount\BankAccount.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AccountManager\AccountManager.h" />
     <ClInclude Include="src\BankAccount\BankAccount.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
