@@ -7,20 +7,13 @@
 
 #include <iostream>
 #include "AccountManager/AccountManager.h"
+#include "Database/Database.h"
 
 int main() {
 
-	AccountManager accountManager;
-
-	accountManager.createBankAccount();
-
-	std::string password = "myPassword123";
-	std::string passwordEncrypted = accountManager.encryptPassword(password);
-	std::string passwordDecrypted = accountManager.decryptPassword(passwordEncrypted);
-	std::cout << "\nOriginal Password: " << password
-		<< "\nEncrypted Password: " << passwordEncrypted
-		<< "\nDecrypted Password: " << passwordDecrypted
-		<< std::endl;
+	Database* database = new Database();
+	delete database;
+	database = nullptr;
 
 	return 0;
 }

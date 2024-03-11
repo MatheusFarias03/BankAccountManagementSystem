@@ -7,15 +7,20 @@
 
 #include "AccountManager.h"
 
-AccountManager::AccountManager() {
+AccountManager::AccountManager(Database* database) {
 	managerId = 0;
 	bankAccount = nullptr;
+	AccountManager::database = database;
 }
 
 AccountManager::~AccountManager() {
 	if (bankAccount != nullptr) {
 		delete bankAccount;
 		bankAccount = nullptr;
+	}
+	if (database != nullptr) {
+		delete database;
+		database = nullptr;
 	}
 }
 
@@ -37,6 +42,7 @@ void AccountManager::createBankAccount() {
 	std::cout << std::endl;
 
 	// TODO: Check if the ssn is already in the database.
+
 
 	bankAccount = new BankAccount(name, address, ssn);
 }
@@ -60,7 +66,7 @@ void AccountManager::loginBankAccount() {
 		std::cin.clear();
 	}
 	
-	// TODO: Search somewhere for the account number - password combination in the datbase.
+	// TODO: Search in the database for the accountNumber-password combination.
 }
 
 std::string AccountManager::encryptPassword(const std::string& password) {

@@ -147,13 +147,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="sqlite\shell.c" />
+    <ClCompile Include="sqlite\sqlite3.c" />
     <ClCompile Include="src\AccountManager\AccountManager.cpp" />
     <ClCompile Include="src\BankAccount\BankAccount.cpp" />
+    <ClCompile Include="src\Database\Database.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="sqlite\sqlite3.h" />
+    <ClInclude Include="sqlite\sqlite3ext.h" />
     <ClInclude Include="src\AccountManager\AccountManager.h" />
     <ClInclude Include="src\BankAccount\BankAccount.h" />
+    <ClInclude Include="src\Database\Database.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

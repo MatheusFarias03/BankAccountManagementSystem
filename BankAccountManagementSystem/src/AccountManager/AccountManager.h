@@ -10,10 +10,11 @@
 
 #include <iostream>
 #include "../BankAccount/BankAccount.h"
+#include "../Database/Database.h"
 
 class AccountManager {
 public:
-	AccountManager();
+	AccountManager(Database* database);
 	~AccountManager();
 
 	void createBankAccount();
@@ -27,6 +28,7 @@ public:
 private:
 	int managerId;
 	BankAccount* bankAccount;
+	Database* database;
 };
 
 #endif // !ACCOUNTMANAGER
