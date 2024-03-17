@@ -12,8 +12,12 @@
 int main() {
 
 	Database* database = new Database();
-	delete database;
-	database = nullptr;
 
+	AccountManager* manager = new AccountManager(database);
+	manager->createBankAccount();
+
+	manager->loginBankAccount();
+
+	delete manager;
 	return 0;
 }

@@ -9,6 +9,7 @@
 #define DATABASE
 
 #include <iostream>
+#include <string>
 #include "../../sqlite/sqlite3.h"
 
 class Database {
@@ -19,6 +20,10 @@ public:
 	void makeQuery(const char* query);
 
 	void checkError(const int request, const char* err);
+
+	bool checkSSNExists(const std::string ssn);
+
+	bool checkLogin(const int accountNum, const std::string password);
 
 private:
 	sqlite3* db;

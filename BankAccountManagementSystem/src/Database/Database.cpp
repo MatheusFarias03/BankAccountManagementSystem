@@ -16,13 +16,15 @@ Database::Database() {
 						"address varchar(255), " 
 						"ssn varchar(50), "
 						"accountNumber INT, "
-						"balance TEXT"
+						"balance TEXT, "
+						"password varchar(255)"
 						"); ";
 
 	makeQuery(query.c_str());
 }
 
 Database::~Database() {
+	sqlite3_close(db);
 	db = nullptr;
 	stmt = nullptr;
 }
@@ -37,4 +39,45 @@ void Database::makeQuery(const char* query) {
 	char* err;
 	int request = sqlite3_exec(db, query, NULL, NULL, &err);
 	checkError(request, err);
+}
+
+bool Database::checkSSNExists(const std::string ssn) {
+	int count = 0;
+	std::string query;
+	query = "SELECT COUNT(*) FROM user WHERE ssn = '";
+	query += ssn + "';";
+
+	std::cout << "\nCheck query: " << query << std::endl;
+
+	int result = sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, NULL);
+	if (result == SQLITE_OK) {
+		if (sqlite3_step(stmt) == SQLITE_ROW) {
+			count = sqlite3_column_int(stmt, 0);
+		}
+	}
+	sqlite3_finalize(stmt);
+
+	std::cout << "\nNumber of occurrences: " << count << std::endl;
+	return count > 0;
+}
+
+bool Database::checkLogin(const int accountNum, const std::string encryptedPassword) {
+	int count = 0;
+	std::string query;
+
+	query = "SELECT COUNT(*) FROM user WHERE accountNumber = ";
+	query += std::to_string(accountNum) + " AND password = '" + encryptedPassword + "';";
+
+	std::cout << "\nCheck login query: " << query << std::endl;
+
+	int result = sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, NULL);
+	if (result == SQLITE_OK) {
+		if (sqlite3_step(stmt) == SQLITE_ROW) {
+			count = sqlite3_column_int(stmt, 0);
+		}
+	}
+	sqlite3_finalize(stmt);
+
+	std::cout << "\nNumber of occurrences: " << count << std::endl;
+	return count > 0;
 }

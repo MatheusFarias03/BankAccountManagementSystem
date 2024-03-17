@@ -30,6 +30,9 @@ void AccountManager::createBankAccount() {
 	std::string address;
 	std::string ssn;
 	std::string password;
+	std::string query;
+
+	std::string encryptedPassword;
 
 	std::cout << "\nAccount Creation.\nInsert your full name: ";
 	std::getline(std::cin, name);
@@ -41,22 +44,41 @@ void AccountManager::createBankAccount() {
 	std::getline(std::cin, ssn);
 	std::cout << std::endl;
 
-	// TODO: Check if the ssn is already in the database.
+	std::cout << "\nInsert your password: ";
+	std::getline(std::cin, password);
 
+	encryptedPassword = encryptPassword(password);
+
+	// Check if the ssn is already in the database.
+	if (database->checkSSNExists(ssn)) {
+		std::cout << "SSN already exists in the database.";
+		return;
+	}
 
 	bankAccount = new BankAccount(name, address, ssn);
+
+	// Insert into the table the newly created account.
+	query = "INSERT INTO user VALUES ('";
+	query += name + "', '" + address + "', '" + ssn + "', " + std::to_string(bankAccount->getAccountNumber())
+		+ ", '" + std::to_string(bankAccount->getBalance()) + "', '" + encryptedPassword + "');";
+	database->makeQuery(query.c_str());
+	std::cout << query << std::endl;
 }
 
 void AccountManager::loginBankAccount() {
 
 	std::string accountNumberStringInput;
 	int accountNumberIntInput;
+
+	std::string accountPasswordInput;
+	std::string accountPasswordEncrypted;
+
 	bool correctInputType = false;
 	
 	while (!correctInputType) {
 		try {
 			std::cout << "\nInsert your account number: ";
-			std::cin >> accountNumberStringInput;
+			std::getline(std::cin, accountNumberStringInput);
 			accountNumberIntInput = std::stoi(accountNumberStringInput);
 			correctInputType = true;
 		}
@@ -65,8 +87,19 @@ void AccountManager::loginBankAccount() {
 		}
 		std::cin.clear();
 	}
+
+	std::cout << "\nInsert your password: ";
+	std::getline(std::cin, accountPasswordInput);
+	accountPasswordEncrypted = encryptPassword(accountPasswordInput);
 	
-	// TODO: Search in the database for the accountNumber-password combination.
+	// Search in the database for the accountNumber-password combination.
+	if (database->checkLogin(accountNumberIntInput, accountPasswordEncrypted)) {
+		std::cout << "Login Successful!" << std::endl;
+		return;
+	}
+	else {
+		std::cout << "Incorrect information." << std::endl;
+	}
 }
 
 std::string AccountManager::encryptPassword(const std::string& password) {
@@ -95,6 +128,7 @@ std::string AccountManager::encryptPassword(const std::string& password) {
 		}
 	}
 
+	std::cout << cipherText << std::endl;
 	return cipherText;
 }
 
