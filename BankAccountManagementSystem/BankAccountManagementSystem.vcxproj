@@ -153,6 +153,7 @@
     <ClCompile Include="src\BankAccount\BankAccount.cpp" />
     <ClCompile Include="src\Database\Database.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Menu\Menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite\sqlite3.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="src\AccountManager\AccountManager.h" />
     <ClInclude Include="src\BankAccount\BankAccount.h" />
     <ClInclude Include="src\Database\Database.h" />
+    <ClInclude Include="src\Menu\Menu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

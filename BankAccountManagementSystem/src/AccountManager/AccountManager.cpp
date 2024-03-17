@@ -62,7 +62,6 @@ void AccountManager::createBankAccount() {
 	query += name + "', '" + address + "', '" + ssn + "', " + std::to_string(bankAccount->getAccountNumber())
 		+ ", '" + std::to_string(bankAccount->getBalance()) + "', '" + encryptedPassword + "');";
 	database->makeQuery(query.c_str());
-	std::cout << query << std::endl;
 }
 
 void AccountManager::loginBankAccount() {
@@ -128,7 +127,6 @@ std::string AccountManager::encryptPassword(const std::string& password) {
 		}
 	}
 
-	std::cout << cipherText << std::endl;
 	return cipherText;
 }
 

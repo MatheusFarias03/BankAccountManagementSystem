@@ -47,8 +47,6 @@ bool Database::checkSSNExists(const std::string ssn) {
 	query = "SELECT COUNT(*) FROM user WHERE ssn = '";
 	query += ssn + "';";
 
-	std::cout << "\nCheck query: " << query << std::endl;
-
 	int result = sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, NULL);
 	if (result == SQLITE_OK) {
 		if (sqlite3_step(stmt) == SQLITE_ROW) {
@@ -57,7 +55,6 @@ bool Database::checkSSNExists(const std::string ssn) {
 	}
 	sqlite3_finalize(stmt);
 
-	std::cout << "\nNumber of occurrences: " << count << std::endl;
 	return count > 0;
 }
 
@@ -68,8 +65,6 @@ bool Database::checkLogin(const int accountNum, const std::string encryptedPassw
 	query = "SELECT COUNT(*) FROM user WHERE accountNumber = ";
 	query += std::to_string(accountNum) + " AND password = '" + encryptedPassword + "';";
 
-	std::cout << "\nCheck login query: " << query << std::endl;
-
 	int result = sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, NULL);
 	if (result == SQLITE_OK) {
 		if (sqlite3_step(stmt) == SQLITE_ROW) {
@@ -78,6 +73,5 @@ bool Database::checkLogin(const int accountNum, const std::string encryptedPassw
 	}
 	sqlite3_finalize(stmt);
 
-	std::cout << "\nNumber of occurrences: " << count << std::endl;
 	return count > 0;
 }
